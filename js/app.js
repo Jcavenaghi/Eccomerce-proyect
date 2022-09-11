@@ -26,9 +26,6 @@ celulares.push(new Celular('iPhone XS', '6', 700))
 let iva21 = 314.14
 
 //funciones
-function aleatorio(minimo,maximo){
-    return Math.floor(Math.random() * ((maximo+1)-minimo)+minimo);
-}
 
 function calcular_total() {
     total = 0.0;
