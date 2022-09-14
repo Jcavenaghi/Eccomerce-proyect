@@ -135,11 +135,11 @@ function renderizar_productos() {
 
 
 
-// function buscar_por_modelo(modelo) { 
-//     modelo = modelo.toUpperCase();
-//     let  celulares_filtrados = celulares.filter(cel => cel.getModeloUpper().includes(modelo));
-//     return celulares_filtrados;
-// }
+function buscar_por_modelo(modelo) { 
+    modelo = modelo.toUpperCase();
+    let  celulares_filtrados = celulares.filter(cel => cel.getModeloUpper().includes(modelo));
+    return celulares_filtrados;
+}
 
 /* ------------------------------------------------------- */
 
@@ -181,3 +181,6 @@ let celus = filtrar_celulares_por_precio(precioMin, precioMax);
 
 console.log(celus);
 calcular_total(celus);
+
+let modelo = prompt("ingrese un modelo de iphone para la busqueda(cualquier coincidencia se mostrara)");
+console.log(buscar_por_modelo(modelo));
