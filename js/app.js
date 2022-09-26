@@ -3,41 +3,44 @@ const baseDeDatosCelulares = [
         modelo: "iPhone 14",
         codigo: 1,
         precio: 2100,
-        imagen: './img/celu.png'
+        imagen: './img/iphone-14.png'
     },
     {
         modelo: "iPhone 13",
         codigo: 2,
         precio: 1700,
-        imagen: './img/celu.png'
+        imagen: './img/iphone-13.png'
     },
     {
         modelo: "iPhone 12 Pro Max",
         codigo: 3,
         precio: 1550,
-        imagen: './img/celu.png'
+        imagen: './img/iphone-12-ProMax.png'
     },
     {
-        modelo: "iPhone 12 Pro",
+        modelo: "iPhone 12",
         codigo: 4,
         precio: 1200,
-        imagen: './img/celu.png'
+        imagen: './img/iphone-12.png'
     },
     {
         modelo: "iPhone 11",
         codigo: 5,
         precio: 1100,
-        imagen: './img/celu.png'
+        imagen: './img/iphone-11.png'
     },
     {
         modelo: "iPhone XS",
         codigo: 6,
         precio: 900,
-        imagen: './img/celu.png'
+        imagen: './img/iphone-xs1.png'
     }
 ]
 
 let carrito = [];
+
+//AGG VAR LOCAL STORAGE.
+const miLocalStorage = window.localStorage;
 
 //variables DOM
 const DOMcarrito = document.querySelector('#carrito');
@@ -53,7 +56,7 @@ function renderizar_productos() {
     baseDeDatosCelulares.forEach((celu) =>{
         //estructura
         const miNodo = document.createElement('article');
-        miNodo.classList.add('justify_img', 'col-lg-4', 'col-md-6');
+        miNodo.classList.add('justify_img','card', 'col-lg-4', 'col-md-6');
 
         //body nodo
 
@@ -103,7 +106,8 @@ function agregarProductoAlCarrito(evento) {
     carrito.push(evento.target.getAttribute('marcador'));
     // Actualizamos el carrito 
     renderizarCarrito();
-    
+    // Actualizamos el LocalStorage
+    guardarCarritoEnLocalStorage();
 }
 
 /**
@@ -115,15 +119,12 @@ function renderizarCarrito() {
     // Quitamos los duplicados
     const carritoSinDuplicados = [...new Set(carrito)];
     // Generamos los Nodos a partir de carrito
-    console.log(carritoSinDuplicados);
     carritoSinDuplicados.forEach((item) => {
         // Obtenemos el item que necesitamos de la variable base de datos
         const miItem = baseDeDatosCelulares.filter((itemBaseDatos) => {
             // ¿Coincide las id? Solo puede existir un caso
             return itemBaseDatos.codigo === parseInt(item);
         });
-        console.log("estos son mis items: ");
-        console.log(miItem);
         // Cuenta el número de veces que se repite el producto
         const numeroUnidadesItem = carrito.reduce((total, itemId) => {
             // ¿Coincide las id? Incremento el contador, en caso contrario no mantengo
@@ -135,9 +136,8 @@ function renderizarCarrito() {
         miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0].modelo} - ${miItem[0].precio}${divisa}`;
         // Boton de borrar
         const miBoton = document.createElement('button');
-        miBoton.classList.add('btn', 'btn-danger', 'mx-5');
+        miBoton.classList.add('btn', 'btn-danger', 'bt-eliminar', 'mx-5', 'my-2');
         miBoton.textContent = 'X';
-        miBoton.style.marginLeft = '1rem';
         miBoton.dataset.item = item;
         miBoton.addEventListener('click', borrarItemCarrito);
         // Mezclamos nodos
@@ -160,6 +160,8 @@ function borrarItemCarrito(evento) {
     });
     // volvemos a renderizar
     renderizarCarrito();
+    // Actualizamos el LocalStorage
+    guardarCarritoEnLocalStorage();
 }
 
 /**
@@ -177,7 +179,7 @@ function borrarItemCarrito(evento) {
         const miItem = baseDeDatosCelulares.filter((itemBaseDatos) => {
             return itemBaseDatos.codigo === parseInt(item);
         });
-        // Los sumamos al total
+        // Los sumamos al total. Para recordar: toFixed(2) hace que sean 2 numeros despues de la coma.
         return total + miItem[0].precio;
     }, 0).toFixed(2);
 }
@@ -187,6 +189,20 @@ function vaciarCarrito() {
     carrito = [];
     // Renderizamos los cambios
     renderizarCarrito();
+    // Borra LocalStorage
+    localStorage.clear();
+}
+
+function guardarCarritoEnLocalStorage() {
+    miLocalStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+function cargarCarritoDeLocalStorage() {
+    // ¿Existe un carrito previo guardado en LocalStorage?
+    if (miLocalStorage.getItem('carrito') !== null) {
+        // Carga la información
+        carrito = JSON.parse(miLocalStorage.getItem('carrito'));
+    }
 }
 
 // Eventos
@@ -223,7 +239,7 @@ function calcular_total(celus_filtrados) {
 }
 
 //codigo js
-
+cargarCarritoDeLocalStorage();
 renderizar_productos();
 renderizarCarrito();
 
