@@ -3,19 +3,19 @@ const baseDeDatosCelulares = [
         modelo: "iPhone 14",
         codigo: 1,
         precio: 2100,
-        imagen: './img/iphone-14.png'
+        imagen: './img/iPhone-14.png'
     },
     {
         modelo: "iPhone 13",
         codigo: 2,
         precio: 1700,
-        imagen: './img/iphone-13.png'
+        imagen: './img/iPhone-13.png'
     },
     {
         modelo: "iPhone 12 Pro Max",
         codigo: 3,
         precio: 1550,
-        imagen: './img/iphone-12-ProMax.png'
+        imagen: './img/iPhone-12-ProMax.png'
     },
     {
         modelo: "iPhone 12",
