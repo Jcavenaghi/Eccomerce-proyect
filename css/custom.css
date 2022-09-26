@@ -8380,3 +8380,9 @@ textarea.form-control-lg {
     width: 100%;
     height: auto;
     opacity: 1; }
+
+.btn_eliminar {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  margin-left: 25px; }
