@@ -51,9 +51,12 @@ const DOMbotonVaciar = document.querySelector("#boton-vaciar");
 
 
 //funciones
-
-function renderizar_productos() {
+function renderizar_todos() {
     baseDeDatosCelulares.forEach((celu) =>{
+        renderizar_productos(celu)
+    })
+}
+function renderizar_productos(celu) {
         //estructura
         const miNodo = document.createElement('article');
         miNodo.classList.add('justify_img','card', 'col-lg-4', 'col-md-6');
@@ -90,7 +93,6 @@ function renderizar_productos() {
         nodoBody.appendChild(miNodoButton);
         miNodo.appendChild(nodoBody);
         DOMsection_celus.appendChild(miNodo);
-    })
 }
 
 /* ----------------------------------- */
@@ -217,12 +219,10 @@ function buscar_por_modelo(modelo) {
 /* ------------------------------------------------------- */
 
 function filtrar_celulares_por_precio(precioMin, precioMax) {
-    let celulares_filtrados = [];
-    baseDeDatosCelulares.forEach(cel => {
+    DOMsection_celus.textContent = ""
+    baseDeDatosCelulares.forEach(celu => {
         let price = cel.precio;
-        if((price >= precioMin) && (price <= precioMax)) {
-            celulares_filtrados.push(cel);
-        }
+        ((price >= precioMin) && (price <= precioMax)) ?? renderizar_productos(celu);
     })
     return celulares_filtrados;
 }
@@ -240,24 +240,5 @@ function calcular_total(celus_filtrados) {
 
 //codigo js
 cargarCarritoDeLocalStorage();
-renderizar_productos();
+renderizar_todos();
 renderizarCarrito();
-
-
-// let precioMin = prompt("ingrese precio minimo para filtrar los productos");
-// let precioMax = prompt("ingrese precio máximo para filtrar los productos");
-
-// console.log(precioMin);
-// console.log(precioMax);
-
-// let celus = filtrar_celulares_por_precio(precioMin, precioMax);
-
-// console.log(celus);
-// calcular_total(celus);
-
-// let modelo = prompt("ingrese un modelo de iphone para la busqueda(cualquier coincidencia se mostrara)");
-// console.log(buscar_por_modelo(modelo));
-
-
-
-//export

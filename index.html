@@ -36,9 +36,22 @@
     </header>
     <main class="container-fluid my-2 p-sm-5">
       <section class="container-fluid">
+        <form class="my-2 p-sm-5">
+          <div>
+            <p>filtro celulares</p>
+            <label for="precioMin">Precio Minimo</label>
+            <input id="precioMin" type="number" name="precioMinCelular" step="1" min="0" max="2000" required>
+            <span class="validity"></span>
+            <br>
+            <label for="precioMin">Precio Maximo</label>
+            <input id="precioMax" type="number" name="precioMaxCelular" step="1" min="0" max="2000" required>
+          </div>
+          <div>
+            <input class="btn btn-primary" type="submit"/>
+          </div>
+        </form>
         <h2 id="celulares" class="text-center m-5">CELULARES</h2>
       </section>
-
 
       <section id="section_celulares" class="container-fluid row mt-5">
           <!-- Se insertaran desde el js-->
