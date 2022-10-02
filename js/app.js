@@ -48,6 +48,7 @@ const divisa = "US$";
 const DOMsection_celus = document.querySelector("#section_celulares");
 const DOMtotal = document.querySelector("#total");
 const DOMbotonVaciar = document.querySelector("#boton-vaciar");
+const DOMbotonRealizarCompra = document.querySelector("#boton-comprar");
 
 
 //funciones
@@ -209,6 +210,23 @@ function cargarCarritoDeLocalStorage() {
 
 // Eventos
 DOMbotonVaciar.addEventListener('click', vaciarCarrito);
+DOMbotonRealizarCompra.addEventListener('click',() => {
+    console.log(carrito);
+    carrito.length == 0 ? 
+        swal({
+            title: "No hay articulos en el carrito",
+            icon: "error",
+            button: "Salir",
+        })
+    :
+        swal({
+            title: "Compra realizada!",
+            text: "Se ha realizado la compra de los articulos satisfactoriamente.",
+            icon: "success",
+            button: "Continuar",
+        })
+        vaciarCarrito();
+})
 
 function buscar_por_modelo(modelo) { 
     modelo = modelo.toUpperCase();
