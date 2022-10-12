@@ -1,42 +1,3 @@
-const baseDeDatosCelulares = [
-    {
-        modelo: "iPhone 14",
-        codigo: 1,
-        precio: 2100,
-        imagen: './img/iPhone-14.png'
-    },
-    {
-        modelo: "iPhone 13",
-        codigo: 2,
-        precio: 1700,
-        imagen: './img/iPhone-13.png'
-    },
-    {
-        modelo: "iPhone 12 Pro Max",
-        codigo: 3,
-        precio: 1550,
-        imagen: './img/iPhone-12-ProMax.png'
-    },
-    {
-        modelo: "iPhone 12",
-        codigo: 4,
-        precio: 1200,
-        imagen: './img/iphone-12.png'
-    },
-    {
-        modelo: "iPhone 11",
-        codigo: 5,
-        precio: 1100,
-        imagen: './img/iphone-11.png'
-    },
-    {
-        modelo: "iPhone XS",
-        codigo: 6,
-        precio: 900,
-        imagen: './img/iphone-xs1.png'
-    }
-]
-
 let carrito = [];
 
 //AGG VAR LOCAL STORAGE.
@@ -52,20 +13,23 @@ const DOMbotonRealizarCompra = document.querySelector("#boton-comprar");
 
 
 //funciones
-function renderizar_todos() {
-    baseDeDatosCelulares.forEach((celu) =>{
+
+const renderizar_todos = async () => {
+    const res = await fetch('../json/data.json')
+    const data = await res.json()
+    data.forEach((celu) => {
         renderizar_productos(celu)
-    })
-}
+    }) 
+} 
 function renderizar_productos(celu) {
         //estructura
         const miNodo = document.createElement('article');
-        miNodo.classList.add('justify_img','card', 'col-lg-4', 'col-md-6');
+        miNodo.classList.add('card', 'justify__img', 'col-xl-4', 'col-md-6');
 
         //body nodo
 
         const nodoBody = document.createElement('div');
-        nodoBody.classList.add('card-body', 'text-center');
+        nodoBody.classList.add( 'card-body','text-center');
 
         //titulo
         const miNodoTitulo = document.createElement('h4');
@@ -74,8 +38,8 @@ function renderizar_productos(celu) {
 
         //imagen
         const miNodoImagen = document.createElement('img');
-        miNodoImagen.classList.add('img-fluid');
-        miNodoImagen.setAttribute('src', celu.imagen);
+        miNodoImagen.classList.add('mx-auto', 'd-block');
+        miNodoImagen.setAttribute('src', './img/iphone-cod'+ celu.codigo + '.png');
         //precio
         const miNodoPrecio = document.createElement('p');
         miNodoPrecio.classList.add('card-text');
@@ -88,10 +52,11 @@ function renderizar_productos(celu) {
         miNodoButton.addEventListener('click', agregarProductoAlCarrito);
 
         //insertamos
-        nodoBody.appendChild(miNodoImagen);
+        // nodoBody.appendChild(miNodoImagen);
         nodoBody.appendChild(miNodoTitulo);
         nodoBody.appendChild(miNodoPrecio);
         nodoBody.appendChild(miNodoButton);
+        miNodo.appendChild(miNodoImagen);
         miNodo.appendChild(nodoBody);
         DOMsection_celus.appendChild(miNodo);
 }
@@ -116,7 +81,10 @@ function agregarProductoAlCarrito(evento) {
 /**
  * Dibuja todos los productos guardados en el carrito
  */
-function renderizarCarrito() {
+
+ const renderizarCarrito = async () => {
+    const res = await fetch('../json/data.json')
+    const data = await res.json()
     // Vaciamos todo el html
     DOMcarrito.textContent = "";
     // Quitamos los duplicados
@@ -124,7 +92,7 @@ function renderizarCarrito() {
     // Generamos los Nodos a partir de carrito
     carritoSinDuplicados.forEach((item) => {
         // Obtenemos el item que necesitamos de la variable base de datos
-        const miItem = baseDeDatosCelulares.filter((itemBaseDatos) => {
+        const miItem = data.filter((itemBaseDatos) => {
             // ¿Coincide las id? Solo puede existir un caso
             return itemBaseDatos.codigo === parseInt(item);
         });
@@ -148,8 +116,9 @@ function renderizarCarrito() {
         DOMcarrito.appendChild(miNodo);
     });
     // Renderizamos el precio total en el HTML
-    DOMtotal.textContent = calcularTotal();
-}
+    DOMtotal.textContent = await calcularTotal();
+} 
+
 
 /*
  * Evento para borrar un elemento del carrito
@@ -175,17 +144,20 @@ function borrarItemCarrito(evento) {
 /**
  * Calcula el precio total teniendo en cuenta los productos repetidos
  */
- function calcularTotal() {
-    // Recorremos el array del carrito 
+
+ const calcularTotal = async () => {
+    const res = await fetch('../json/data.json')
+    const data = await res.json()
+   // Recorremos el array del carrito 
     return carrito.reduce((total, item) => {
         // De cada elemento obtenemos su precio
-        const miItem = baseDeDatosCelulares.filter((itemBaseDatos) => {
+        const miItem = data.filter((itemBaseDatos) => {
             return itemBaseDatos.codigo === parseInt(item);
         });
         // Los sumamos al total. Para recordar: toFixed(2) hace que sean 2 numeros despues de la coma.
         return total + miItem[0].precio;
     }, 0).toFixed(2);
-}
+ }
 
 function vaciarCarrito() {
     // Limpiamos los productos guardados
@@ -244,18 +216,6 @@ function filtrar_celulares_por_precio(precioMin, precioMax) {
     })
     return celulares_filtrados;
 }
-
-
-function calcular_total(celus_filtrados) {
-    let total = 0.0;
-    celus_filtrados.forEach(cel => {
-        precioConIva = cel.precio;
-        alert(cel.modelo + ", precio: " + precioConIva);
-        total+= precioConIva;
-    });
-    alert("el valor de todos los iphone en stock es de: " + (total) + " Dolares"); // se aplica el iva al precio final, no al de cada producto.
-}
-
 //codigo js
 cargarCarritoDeLocalStorage();
 renderizar_todos();
