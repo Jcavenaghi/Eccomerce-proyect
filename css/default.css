@@ -1,0 +1,6 @@
+.justify__img {
+    position: relative; }
+    .justify__img img {
+      width: 400;
+      height: 500px;
+      opacity: 1; }

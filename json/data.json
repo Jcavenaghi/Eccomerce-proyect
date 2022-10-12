@@ -1,0 +1,38 @@
+[
+    {
+        "modelo": "iPhone 14",
+        "codigo": 1,
+        "precio": 2100
+
+    },
+    {
+        "modelo": "iPhone 13",
+        "codigo": 2,
+        "precio": 1700
+
+    },
+    {
+        "modelo": "iPhone 12 Pro Max",
+        "codigo": 3,
+        "precio": 1550
+
+    },
+    {
+        "modelo": "iPhone 12",
+        "codigo": 4,
+        "precio": 1200
+
+    },
+    {
+        "modelo": "iPhone 11",
+        "codigo": 5,
+        "precio": 1100
+
+    },
+    {
+        "modelo": "iPhone XS",
+        "codigo": 6,
+        "precio": 900
+
+    }
+]
