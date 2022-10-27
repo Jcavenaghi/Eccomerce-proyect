@@ -11,9 +11,9 @@
 </head>
 <body>
     <header>
-      <nav class="navbar navbar-expand-xl navbar-light bg-custom-lightblue-ultralight">
+      <nav class="navbar navbar-expand-xl navbar-light bg-secondary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="./index.html">EcommerChasco</a>
+          <a class="navbar-brand text-white" href="./index.html">EcommerChasco</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBasic" aria-controls="navbarBasic" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -21,13 +21,27 @@
           <div class="collapse navbar-collapse show" id="navbarBasic">
             <ul class="navbar-nav me-auto mb-2 mb-xl-0">
               <li class="nav-item mx-5">
-                <a class="nav-link active text-uppercase" aria-current="page" href="./index.html"> <i class="fa-solid fa-house me-3"></i> Inicio</a>
+                <a class="nav-link active text-uppercase text-white" aria-current="page" href="./index.html"> <i class="fa-solid fa-house me-3 text-white"></i> Inicio</a>
               </li>
               <li class="nav-item mx-5">
-                <a class="nav-link text-uppercase" href="#celulares"> <i class="fa-solid fa-book me-3"></i> Celulares</a>
+                <a class="nav-link text-uppercase text-white" href="#celulares"> <i class="fa-solid fa-book me-3 text-white"></i> Celulares</a>
               </li>
               <li class="nav-item mx-5">
-                <a class="nav-link text-uppercase" href="#seccion_carrito"> <i class="fa-solid fa-cart-shopping"></i>Carrito</a>
+                <div class="dropdown">
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownmenu" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-cart-shopping text-white"></i>Carrito
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownmenu">
+                    <section class="container-fluid">
+                      <h2 id="seccion_carrito" class="text-center m-5">CARRITO</h2>
+                      <table id="carrito" class="table"></table>
+                      <hr>
+                      <!-- Precio total -->
+                      <p class="text-right">Total: <span id="total"></span>&dollar;</p>
+                      <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+                      <button id="boton-comprar" class="btn btn-primary">Realiza compra</button>
+                    </section>
+                </div>
               </li>
             </ul>
           </div>
@@ -36,20 +50,36 @@
     </header>
     <main class="container-fluid my-2 p-sm-5">
       <section class="container-fluid">
-        <form class="my-2 p-sm-5">
-          <div>
-            <p>filtro celulares</p>
-            <label for="precioMin">Precio Minimo</label>
-            <input id="precioMin" type="number" name="precioMinCelular" step="1" min="0" max="2000" required>
-            <span class="validity"></span>
-            <br>
-            <label for="precioMin">Precio Maximo</label>
-            <input id="precioMax" type="number" name="precioMaxCelular" step="1" min="0" max="2000" required>
-          </div>
-          <div>
-            <input class="btn btn-primary" type="submit"/>
-          </div>
-        </form>
+        <div id="form" class="d-flex flex-row">
+          <select
+            onchange="change()"
+            class="form-control border-0 text-white m-1"
+            id="filter_criterion"
+            style="background-color: #a69772; height: 36px; width:180px"
+            name="filter_criterion"
+          >
+            <option 
+              disabled
+              selected
+              value="">
+              Filtrar
+            </option>
+            <option value="major_to_minor">
+              Precio mayor a menor
+            </option>
+            <option value="minor_to_major">
+              Precio menor a mayor
+            </option>
+          </select>
+          <button 
+            id="search-btn" 
+            class="btn btn-primary border-0 m-1" 
+            disabled
+            style="background-color: #a69772; height: 36px;"
+          >
+            Buscar
+          </button>
+        </div>
         <h2 id="celulares" class="text-center m-5">CELULARES</h2>
       </section>
       <div class="container-fluid">
@@ -57,29 +87,16 @@
           <!-- Se insertaran desde el js-->
         </section>
       </div>
-      <section class="container-fluid">
-        <h2 id="seccion_carrito" class="text-center m-5">CARRITO</h2>
-        <ul id="carrito" class="row"></ul>
-        <hr>
-        <!-- Precio total -->
-        <p class="text-right">Total: <span id="total"></span>&dollar;</p>
-        <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
-        <button id="boton-comprar" class="btn btn-primary">Realiza compra</button>
-      </section>
     </main>
-    <div class="text-center">
-      <button type="button" class="btn btn-info text-center" onclick="calcular_total()">Calcular Total</button>
-    </div>
-
     <!-- Footer -->
-    <footer class="text-center text-lg-start bg-custom-lightblue-ultralight text-muted">
+    <footer class="text-center text-lg-start bg-light text-muted">
       <!-- Section: Social media -->
       <section
         class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
       >
         <!-- Left -->
         <div class="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
+          <span>Contactate mediante nuestras redes sociales:</span>
         </div>
         <!-- Left -->
 
@@ -111,9 +128,9 @@
             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
               <!-- Content -->
               <h6 class="text-center text-uppercase fw-bold mb-4">
-                <i class="fas fa-gem me-3"></i>ChascoWeb
+                <i class="fas fa-gem me-3"></i>ChascoShop
               </h6>
-              <img src="../img/logo-chas.png" class="img-thumbnail border-2 border-dark mx-auto d-block" alt="logo-chascomus">
+              <img src="../img/appleLogo.png" class="img-thumbnail border-2 border-dark mx-auto d-block bg-light" alt="logo-chascomus">
             </div>
             <!-- Grid column -->
 
@@ -121,7 +138,7 @@
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
               <!-- Links -->
               <h6 class="text-uppercase fw-bold mb-4">
-                Chascomús, tu lugar.
+                Chascomús, Ecommer.
               </h6>
             </div>
             <!-- Grid column -->
@@ -148,7 +165,7 @@
       <!-- Section: Links  -->
 
       <!-- Copyright -->
-      <div class="text-center p-4 bg-custom-purple-light">
+      <div class="text-center text-white p-4 bg-secondary">
         2021 - Joaquin Cavenaghi - Todos los Derechos Reservados.
         
       </div>
@@ -157,5 +174,6 @@
     <!-- Footer -->
     <script src="./js/app.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

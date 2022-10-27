@@ -11,8 +11,12 @@ const DOMtotal = document.querySelector("#total");
 const DOMbotonVaciar = document.querySelector("#boton-vaciar");
 const DOMbotonRealizarCompra = document.querySelector("#boton-comprar");
 
+DOMbutton = document.getElementById("search-btn");
 
 //funciones
+function change() {
+    DOMbutton.removeAttribute("disabled");
+}
 
 const renderizar_todos = async () => {
     const res = await fetch('../json/data.json')
@@ -208,14 +212,35 @@ function buscar_por_modelo(modelo) {
 
 /* ------------------------------------------------------- */
 
-function filtrar_celulares_por_precio(precioMin, precioMax) {
-    DOMsection_celus.textContent = ""
-    baseDeDatosCelulares.forEach(celu => {
-        let price = cel.precio;
-        ((price >= precioMin) && (price <= precioMax)) ?? renderizar_productos(celu);
-    })
-    return celulares_filtrados;
+const ordenar_major_to_minor = async () => {
+    const res = await fetch('../json/data.json');
+    const data = await res.json();
+        data.sort(data.precio);
+        data.forEach((celu) => {
+            renderizar_productos(celu);
+        }) 
+} 
+
+const ordenar_minor_to_major = async () => {
+    const res = await fetch('../json/data.json');
+    const data = await res.json();
+        data.reverse(data.precio);
+        data.forEach((celu) => {
+            renderizar_productos(celu);
+        }) 
 }
+    
+DOMbutton.addEventListener("click", () => {
+    let valor = document.getElementById("filter_criterion").value;
+    DOMsection_celus.textContent = "";
+    if (valor == "minor_to_major") {
+      ordenar_minor_to_major();
+    } else{
+        ordenar_major_to_minor();
+    }
+})
+
+
 //codigo js
 cargarCarritoDeLocalStorage();
 renderizar_todos();

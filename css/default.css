@@ -1,6 +1,7 @@
 .justify__img {
-    position: relative; }
+    position:relative; }
     .justify__img img {
-      width: 400;
+      width: auto;
       height: 500px;
+      object-fit: cover;
       opacity: 1; }
