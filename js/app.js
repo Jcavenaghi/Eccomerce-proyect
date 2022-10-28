@@ -28,7 +28,7 @@ const renderizar_todos = async () => {
 function renderizar_productos(celu) {
         //estructura
         const miNodo = document.createElement('article');
-        miNodo.classList.add('card', 'justify__img', 'col-xl-4', 'col-md-6');
+        miNodo.classList.add('justify__img','col-xl-6' ,'col-md-12');
 
         //body nodo
 
@@ -50,7 +50,7 @@ function renderizar_productos(celu) {
         miNodoPrecio.textContent = `${celu.precio}${divisa}`;
 
         const miNodoButton = document.createElement('button');
-        miNodoButton.classList.add('btn', 'btn-primary');
+        miNodoButton.classList.add('btn', 'btn-primary', 'border-5');
         miNodoButton.textContent = 'Agregar al carrito';
         miNodoButton.setAttribute('marcador', celu.codigo);
         miNodoButton.addEventListener('click', agregarProductoAlCarrito);
@@ -187,7 +187,6 @@ function cargarCarritoDeLocalStorage() {
 // Eventos
 DOMbotonVaciar.addEventListener('click', vaciarCarrito);
 DOMbotonRealizarCompra.addEventListener('click',() => {
-    console.log(carrito);
     carrito.length == 0 ? 
         swal({
             title: "No hay articulos en el carrito",
@@ -204,13 +203,10 @@ DOMbotonRealizarCompra.addEventListener('click',() => {
         vaciarCarrito();
 })
 
-function buscar_por_modelo(modelo) { 
-    modelo = modelo.toUpperCase();
-    let  celulares_filtrados = celulares.filter(cel => cel.getModeloUpper().includes(modelo));
-    return celulares_filtrados;
-}
-
 /* ------------------------------------------------------- */
+
+
+/* ordena de mayor precio a menor precio */
 
 const ordenar_major_to_minor = async () => {
     const res = await fetch('../json/data.json');
@@ -221,6 +217,7 @@ const ordenar_major_to_minor = async () => {
         }) 
 } 
 
+/* ordena de menor precio a mayor precio */
 const ordenar_minor_to_major = async () => {
     const res = await fetch('../json/data.json');
     const data = await res.json();
@@ -233,6 +230,9 @@ const ordenar_minor_to_major = async () => {
 DOMbutton.addEventListener("click", () => {
     let valor = document.getElementById("filter_criterion").value;
     DOMsection_celus.textContent = "";
+    //si elcriterio por que vamos a filtar es de mayor a menor,
+    //llamamos a la función correspondiente que ordena los celulares
+    //de esa manera, caso contrario, se ordena a la inversa y se renderiza.
     if (valor == "minor_to_major") {
       ordenar_minor_to_major();
     } else{

@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/default.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d2b0874d59.js" crossorigin="anonymous"></script>
-    <title>Proyecto</title>
+    <link rel="icon" href="../img/appleLogo.png">
+    <title>EcommerChasco</title>
 </head>
 <body>
     <header>
@@ -27,21 +28,7 @@
                 <a class="nav-link text-uppercase text-white" href="#celulares"> <i class="fa-solid fa-book me-3 text-white"></i> Celulares</a>
               </li>
               <li class="nav-item mx-5">
-                <div class="dropdown">
-                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownmenu" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-cart-shopping text-white"></i>Carrito
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownmenu">
-                    <section class="container-fluid">
-                      <h2 id="seccion_carrito" class="text-center m-5">CARRITO</h2>
-                      <table id="carrito" class="table"></table>
-                      <hr>
-                      <!-- Precio total -->
-                      <p class="text-right">Total: <span id="total"></span>&dollar;</p>
-                      <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
-                      <button id="boton-comprar" class="btn btn-primary">Realiza compra</button>
-                    </section>
-                </div>
+                <a class="nav-link text-uppercase text-white" href="#seccion_carrito"><i class="fa-solid fa-cart-shopping text-white"></i>Carrito </a>
               </li>
             </ul>
           </div>
@@ -87,6 +74,16 @@
           <!-- Se insertaran desde el js-->
         </section>
       </div>
+
+      <section class="container-fluid">
+        <h2 id="seccion_carrito" class="text-center m-5">CARRITO</h2>
+        <ul id="carrito" class="p-0"></ul>
+        <hr>
+        <!-- Precio total -->
+        <p class="text-right">Total: <span id="total"></span>&dollar;</p>
+        <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+        <button id="boton-comprar" class="btn btn-primary">Realiza compra</button>
+      </section>
     </main>
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted">
