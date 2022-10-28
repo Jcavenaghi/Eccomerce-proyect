@@ -28,7 +28,7 @@ const renderizar_todos = async () => {
 function renderizar_productos(celu) {
         //estructura
         const miNodo = document.createElement('article');
-        miNodo.classList.add('card', 'justify__img', 'col-xl-4', 'col-md-6');
+        miNodo.classList.add('justify__img','col-xl-6' ,'col-md-12');
 
         //body nodo
 
@@ -50,7 +50,7 @@ function renderizar_productos(celu) {
         miNodoPrecio.textContent = `${celu.precio}${divisa}`;
 
         const miNodoButton = document.createElement('button');
-        miNodoButton.classList.add('btn', 'btn-primary');
+        miNodoButton.classList.add('btn', 'btn-primary', 'border-5');
         miNodoButton.textContent = 'Agregar al carrito';
         miNodoButton.setAttribute('marcador', celu.codigo);
         miNodoButton.addEventListener('click', agregarProductoAlCarrito);
